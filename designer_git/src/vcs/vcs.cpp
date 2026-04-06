@@ -6,7 +6,7 @@
 
 namespace fs = std::filesystem;
 
-bool init_repository(const std::string &root_path)
+int init_repository(const std::string &root_path)
 {
     fs::path vcs = root_path + "/.vcs";
 
@@ -14,7 +14,7 @@ bool init_repository(const std::string &root_path)
     if (fs::exists(vcs))
     {
         std::cerr << "이미 dgit 저장소가 존재합니다.\n";
-        return false;
+        return -1;
     }
 
     // 폴더 생성
@@ -27,5 +27,5 @@ bool init_repository(const std::string &root_path)
     std::ofstream(vcs / "HEAD").close();  // 빈 HEAD (초기값 "")
 
     std::cout << "dgit 저장소가 초기화되었습니다: " << vcs << "\n";
-    return true;
+    return 0;
 }

@@ -1,26 +1,21 @@
-#ifndef VCS_H // 헤더 중복 방지
-#define VCS_H
-
+#pragma once
 #include <string>
-#include <vector>
 
 // 저장소 초기화 (dgit init)
 // root_path: .vcs 폴더를 만들 위치
-bool init_repository(const std::string &root_path);
+int init_repository(const std::string &root_path);
 
 // 파일 추적 등록 (dgit add)
 // file_path: 추적할 파일 경로
-bool add_file(const std::string &file_path);
+int add_file(const std::string &file_path);
 
 // 커밋 생성 (dgit commit)
 // message: 커밋 메시지
-bool commit(const std::string &message);
+std::string commit(const std::string &message);
 
 // 특정 커밋으로 복원 (dgit checkout)
 // commit_id: 복원할 커밋 ID
-bool checkout(const std::string &commit_id);
+int checkout(const std::string &commit_id);
 
 // 커밋 히스토리 출력 (dgit log)
-bool log();
-
-#endif // VCS_H
+void log();
