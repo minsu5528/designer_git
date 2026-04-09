@@ -36,12 +36,12 @@ int add_file(const std::string &filepath);
  * 내부적으로 delta_create()를 호출해서 delta를 생성하고
  * .vcs/commits/[ID].json 으로 메타데이터를 저장한다.
  *
- * @param message 커밋 메시지
- * @return        커밋 ID 문자열 (SHA256), 실패 시 빈 문자열
- *
- * 사용: CLI, 테스트
+ * @param repo_path   저장소 루트 경로
+ * @param message     커밋 메시지
+ * @param target_file 커밋 대상 파일 경로
+ * @return            생성된 커밋 ID 문자열, 실패 시 빈 문자열
  */
-std::string commit(const std::string &message);
+std::string commit(const std::string &repo_path, const std::string &message, const std::string &target_file);
 
 /**
  * checkout
@@ -102,15 +102,3 @@ int save_commit_metadata(const std::string &repo_path, const CommitMetadata &met
  * @return          복원된 CommitMetadata 객체 (실패 시 빈 객체 반환)
  */
 CommitMetadata load_commit_metadata(const std::string &repo_path, const std::string &commit_id);
-
-/**
- * commit
- * 현재 작업 중인 파일을 버전으로 기록한다. (dgit commit)
- * 내부적으로 delta_create()를 호출하여 변경분을 추출하고 메타데이터를 저장한다.
- *
- * @param repo_path   저장소 루트 경로
- * @param message     커밋 메시지
- * @param target_file 커밋 대상 파일 경로
- * @return            생성된 커밋 ID 문자열, 실패 시 빈 문자열
- */
-std::string commit(const std::string &repo_path, const std::string &message, const std::string &target_file);
